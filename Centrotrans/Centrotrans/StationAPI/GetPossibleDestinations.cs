@@ -30,7 +30,12 @@ namespace Centrotrans.StationAPI
                 Variables = new
                 {
                     cardTypeId = 1,
-                    startStationId = stationID
+                    startStationId = stationID,
+                    pagination = new
+                    {
+                        page = 1,
+                        itemsPerPage = 10000
+                    }
                 }
             };
 
@@ -41,5 +46,5 @@ namespace Centrotrans.StationAPI
 
             return val.Data.GetPossibleDestinations;
         }
-    }
+    }  
 }
