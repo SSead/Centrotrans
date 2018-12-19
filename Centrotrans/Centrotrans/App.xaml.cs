@@ -11,7 +11,7 @@ namespace Centrotrans
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new InputPage());
         }
 
         protected override void OnStart()

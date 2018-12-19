@@ -1,22 +1,94 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Centrotrans.StationList">
+             xmlns:local="clr.namespace:Centrotrans;assembly=Centrotrans"
+             x:Class="Centrotrans.StationList"
+             Title="Rezultati pretrazivanja">
     <ListView x:Name="MyListView"
             ItemsSource="{Binding .Items}"
             ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement">
 
+        <ListView.RowHeight>100</ListView.RowHeight>
+
         <!--Built in Cells-->
         <ListView.ItemTemplate>
             <DataTemplate>
-                <!--  <StackLayout Orientation="Horizontal">
-                    <Label Text="" />
-                    <Label Text="{Binding .timeTables[0].entries[0].station.name}" />
-                    <Label Text="{Binding .linePrice.ToString()}" />
-                    <Label Text="{Binding .currenccy}" />
-                </StackLayout>-->
-                <TextCell Text="{Binding .header}" />
+                <ViewCell Height="1000">
+                    <Grid HeightRequest="1000">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="3*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <Image Source="https://lh3.googleusercontent.com/hWu6R9ikLGXmaOsP2ZTsyTUOxQupbUlfiktK88wpLdGpmSR0UyIX1k9elbwlpqSClA=s180-rw" 
+                               Grid.Column="0"
+                               Grid.Row="0" 
+                               Grid.RowSpan="2"
+                               Margin="2, 0, 0, 0"/>
+
+                        <Label Text="{Binding .firstStation}" 
+                               Grid.Column="1" 
+                               Grid.Row="0" 
+                               Grid.ColumnSpan="2"
+                               VerticalTextAlignment="Center"
+                               Margin="10, 0, 0, 0"
+                               FontSize="18"/>
+                        
+                        <Label Text="{Binding .lastStation}" 
+                               Grid.Column="1" 
+                               Grid.Row="1" 
+                               Grid.ColumnSpan="2"
+                               VerticalTextAlignment="Center" 
+                               Margin="10, 0, 0, 0"
+                               FontSize="18"/>
+
+                        <Label Text="{Binding .departTime}" 
+                               Grid.Column="3" 
+                               Grid.Row="0" 
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"/>
+                        
+                        <Label Text="{Binding .arrivalTime}" 
+                               Grid.Column="3" 
+                               Grid.Row="1" 
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"/>
+
+                        <Button Text="VISE" 
+                                Grid.Column="2" 
+                                Grid.Row="2" 
+                                BackgroundColor="#2196F3" 
+                                TextColor="White"
+                                FontSize="11"
+                                FontAttributes="Bold"
+                                Margin="5, 2, 5, 2"/>
+                        
+                        <Button Text="{Binding .price}" 
+                                Grid.Column="3" 
+                                Grid.Row="2" 
+                                BackgroundColor="#2196F3" 
+                                TextColor="White"
+                                FontSize="11"
+                                FontAttributes="Bold"
+                                Margin="5, 2, 5, 2" />
+                        <Label Text="{Binding .distance}"
+                               FontSize="17"
+                               Grid.Column="0"
+                               Grid.Row="2"
+                               HorizontalTextAlignment="Center"
+                               Margin="2, 0, 0, 0"/>
+                    </Grid>
+                </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
 
