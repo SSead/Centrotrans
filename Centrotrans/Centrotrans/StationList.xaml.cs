@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rg.Plugins.Popup.Services;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -42,16 +43,18 @@ namespace Centrotrans
 
         int stationBegin;
         int stationEnd;
-        DateTime date;
+        DateTime departureDate;
+        DateTime returnDate;
 
         dynamic stationData;
-    public StationList(int stationBegin, int stationEnd, DateTime date)
+    public StationList(int stationBegin, int stationEnd, DateTime departureDate, DateTime returnDate)
         {
             InitializeComponent();
 
             this.stationBegin = stationBegin;
             this.stationEnd = stationEnd;
-            this.date = date;
+            this.departureDate = departureDate;
+            this.returnDate = returnDate;
 
             getStationData();
         }
@@ -65,13 +68,15 @@ namespace Centrotrans
             var endIndex = indexOfStationInTimeTable(stationEnd, item.line.timeTables[0]);
 
 
-
+            /*
             await DisplayAlert(item.line.partner.name.ToString(),
                 "Vrijeme polaska: " + DateTime.Parse(item.line.timeTables[0].departTime.ToString()).AddSeconds((int)item.line.timeTables[0].entries[begIndex].timeSeconds).ToString("HH:mm") + "\n\n" +
                 "Vrijeme dolaska: " + DateTime.Parse(item.line.timeTables[0].departTime.ToString()).AddSeconds((int)item.line.timeTables[0].entries[endIndex].timeSeconds).ToString("HH:mm") + "\n\n" +
                 "Cijena karte: " + item.line.linePrice.ToString() + " " + item.line.currency.ToString() + "\n\n"
                 , "OK");
+            */
 
+            await PopupNavigation.Instance.PushAsync(new StationPopup(item.line), true);
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
@@ -90,7 +95,7 @@ namespace Centrotrans
 
         private async void getStationData()
         {
-            stationData = await StationAPI.GetLinesDrivingThroughStations.post(stationBegin, stationEnd, date);
+            stationData = await StationAPI.GetLinesDrivingThroughStations.post(stationBegin, stationEnd, departureDate, returnDate);
 
 
             Items = new ObservableCollection<Item> { };

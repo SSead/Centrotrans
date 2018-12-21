@@ -8,7 +8,7 @@ namespace Centrotrans.StationAPI
 {
     class GetLinesDrivingThroughStations
     {
-        public async static System.Threading.Tasks.Task<dynamic> post(int stationBegin, int stationEnd, DateTime date)
+        public async static System.Threading.Tasks.Task<dynamic> post(int stationBegin, int stationEnd, DateTime departureDate, DateTime returnDate)
         {
             var request = new GraphQL.Common.Request.GraphQLRequest
             {
@@ -73,10 +73,11 @@ namespace Centrotrans.StationAPI
                 ",
                 Variables = new
                 {
-                    cardTypeId = 1,
+                    cardTypeId = (returnDate == DateTime.Today.AddDays(-1) ? 1 : 2),
                     fromStationId = stationBegin,
                     toStationId = stationEnd,
-                    departureDate = date.ToString("yyyy-MM-ddTHH:mm:ss.000Z"),
+                    departureDate = departureDate.ToString("yyyy-MM-ddTHH:mm:ss.000Z"),
+                    returnDate = returnDate.ToString("yyyy-MM-ddTHH:mm:ss.0000Z"),
                     currencyId = 1,
                     page = 1,
                     itemsPerPage = 10000

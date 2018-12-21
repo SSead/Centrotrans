@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Xfx;
+using Rg;
 
 namespace Centrotrans.Droid
 {
@@ -21,6 +22,7 @@ namespace Centrotrans.Droid
             base.OnCreate(savedInstanceState);
 
             XfxControls.Init();
+            Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());

@@ -10,17 +10,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="images\arrow.png" />
+    <None Remove="images\dot.png" />
     <None Remove="images\icon.jpg" />
     <None Remove="images\logo.jpg" />
+    <None Remove="images\logo.png" />
+    <None Remove="images\pin.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="images\arrow.png" />
+    <EmbeddedResource Include="images\dot.png" />
     <EmbeddedResource Include="images\icon.jpg" />
     <EmbeddedResource Include="images\logo.jpg" />
+    <EmbeddedResource Include="images\logo.png" />
+    <EmbeddedResource Include="images\pin.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="1.1.5.180" />
     <PackageReference Include="Xamarin.Essentials" Version="1.0.0" />
     <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />
     <PackageReference Include="Xfx.Controls" Version="1.1.3" />
@@ -36,6 +45,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="StationList.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="StationPopup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

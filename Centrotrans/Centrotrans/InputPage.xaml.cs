@@ -18,10 +18,7 @@ namespace Centrotrans
             .Where(x => x.ToLower().StartsWith(text.ToLower()))
             .OrderBy(x => x)
             .ToList();
-
-        XfxComboBox stationBegin;
-        XfxComboBox stationEnd;
-
+        
         List<string> stationBeginStrings;
         List<string> stationEndStrings;
 
@@ -29,6 +26,9 @@ namespace Centrotrans
         dynamic stationEndData;
         public InputPage()
         {
+            NavigationPage.SetHasNavigationBar(this, true);
+            NavigationPage.SetHasBackButton(this, false);
+
             InitializeComponent();
             initilizeView();
 
@@ -71,49 +71,16 @@ namespace Centrotrans
 
         private void initilizeView()
         {
-            var h = DeviceDisplay.MainDisplayInfo.Height * 0.315;
+            arrowImg.Source = ImageSource.FromResource("Centrotrans.images.arrow.png");
 
-            var logo = new Image
-            {
-                Source = ImageSource.FromResource("Centrotrans.images.logo.jpg"),
-                Margin = new Thickness(0, 0, 0, 0),
-                HeightRequest = h / 3,
-                Aspect = Aspect.AspectFit
+            departureDate.MinimumDate = DateTime.Today;
+            returnDate.MinimumDate = DateTime.Today.AddDays(-1);
 
-            };
+            stationBegin.SortingAlgorithm = sorting;
+            stationEnd.SortingAlgorithm = sorting;
 
-            stationBegin = new XfxComboBox
-            {
-                Placeholder = "Pocetna stanica",
-                VerticalOptions = LayoutOptions.Center,
-                Margin = new Thickness(10, 0, 10, 0),
-                SortingAlgorithm = sorting
-            };
-
-            stationEnd = new XfxComboBox
-            {
-                Placeholder = "Krajnja stanica",
-                VerticalOptions = LayoutOptions.Center,
-                IsEnabled = false,
-                Margin = new Thickness(10, 0, 10, 0),
-                SortingAlgorithm = sorting
-            };
-
-            var datePicker = new DatePicker
-            {
-                Margin = new Thickness(10, 0, 10, 0),
-                MinimumDate = DateTime.Now
-            };
-
-            var button = new Button
-            {
-                Text = "Lista Buseva",
-                Margin = new Thickness(50, 0, 50, 0),
-                BackgroundColor = Color.FromHex("#2196f3"),
-                TextColor = Color.White,
-                HeightRequest = 50
-
-            };
+            returnLbl.IsEnabled = false;
+            returnDate.IsEnabled = false;
 
             button.Pressed += async (sender, args) =>
             {
@@ -123,7 +90,8 @@ namespace Centrotrans
 
                     await Navigation.PushAsync(new StationList((int)stationBeginData[stationBeginStrings.IndexOf(stationBegin.Text)].stationId.Value,
                                                         (int)stationEndData[stationEndStrings.IndexOf(stationEnd.Text)].stationId.Value,
-                                                        datePicker.Date));
+                                                        departureDate.Date,
+                                                        (returnSwitch.IsToggled ? returnDate.Date : DateTime.Today.AddDays(-1))));
                     /*
                     await (Application.Current as App).NavigationPage.PushAsync(new StationList((int)stationBeginData[stationBeginStrings.IndexOf(stationBegin.Text)].stationId.Value,
                                                         (int)stationEndData[stationEndStrings.IndexOf(stationEnd.Text)].stationId.Value,
@@ -131,28 +99,16 @@ namespace Centrotrans
                 }
             };
 
-            var grid = new Grid
+            returnSwitch.Toggled += async (sender, args) =>
             {
-                RowDefinitions = {
-                    new RowDefinition { Height = new GridLength(30, GridUnitType.Star) },
-                    new RowDefinition { Height = new GridLength(11, GridUnitType.Star) },
-                    new RowDefinition { Height = new GridLength(4, GridUnitType.Star) },
-                    new RowDefinition { Height = new GridLength(11, GridUnitType.Star) },
-                    new RowDefinition { Height = new GridLength(4, GridUnitType.Star) },
-                    new RowDefinition { Height = new GridLength(11, GridUnitType.Star) },
-                    new RowDefinition { Height = new GridLength(7, GridUnitType.Star) },
-                    new RowDefinition { Height = new GridLength(9, GridUnitType.Star) },
-                    new RowDefinition { Height = new GridLength(6, GridUnitType.Star) }
-                }
+                returnLbl.IsEnabled = returnSwitch.IsToggled;
+                returnDate.IsEnabled = returnSwitch.IsToggled;
             };
 
-            grid.Children.Add(logo, 0, 0);
-            grid.Children.Add(stationBegin, 0, 1);
-            grid.Children.Add(stationEnd, 0, 3);
-            grid.Children.Add(datePicker, 0, 5);
-            grid.Children.Add(button, 0, 7);
-
-            this.Content = grid;
+            departureDate.DateSelected += async (sender, args) =>
+            {
+                returnDate.MinimumDate = departureDate.Date;
+            };
         }
 
     }

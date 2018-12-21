@@ -11,7 +11,6 @@
 
         <ListView.RowHeight>100</ListView.RowHeight>
 
-        <!--Built in Cells-->
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell Height="1000">

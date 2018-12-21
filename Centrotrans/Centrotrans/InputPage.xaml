@@ -2,12 +2,117 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Centrotrans"
+             xmlns:xfx="clr-namespace:Xfx;assembly=Xfx.Controls"
              x:Class="Centrotrans.InputPage"
              Title="Centrotrans">
     
-    <StackLayout>
-        <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-    </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="0*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="60*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <xfx:XfxComboBox x:Name="stationBegin"
+                             Placeholder="Pocetna stanica"
+                             VerticalOptions="Center"
+                             Grid.Row="1"
+                             Grid.Column="0"
+                             Grid.ColumnSpan="3"
+                             Margin="10, 0, 10, 0"/>
+
+            <xfx:XfxComboBox x:Name="stationEnd"
+                             Placeholder="Krajnja stanica"
+                             VerticalOptions="Center"
+                             Grid.Row="1"
+                             Grid.Column="4"
+                             Grid.ColumnSpan="3"
+                             Margin="10, 0, 10, 0"/>
+
+            <Image x:Name="arrowImg"
+                   VerticalOptions="Start"
+                   HorizontalOptions="Center"
+                   Grid.Row="1"
+                   Grid.Column="3"
+                   Margin="0, 20, 0, 40"/>
+
+
+            <Label Text="Datum polaska:" 
+                   FontSize="16"
+                   VerticalOptions="Center"
+                   Margin="20, 0, 0, 0"
+                   Grid.Row="3"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="3"/>
+
+            <Label x:Name="returnLbl"
+                   Text="Povratak:" 
+                   FontSize="16"
+                   TextColor="Default"
+                   VerticalOptions="Center"
+                   Margin="15, 0, 0, 0"
+                   Grid.Row="5"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="2"/>
+
+            <Switch x:Name="returnSwitch"
+                    Margin="10, 0, 0, 0"
+                    HorizontalOptions="Start"
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"/>
+
+            <DatePicker x:Name="departureDate"
+                        Margin="10, 0, 10, 0"
+                        Grid.Row="3"
+                        Grid.Column="3"
+                        Grid.ColumnSpan="4"/>
+
+            <DatePicker x:Name="returnDate"
+                        Margin="10, 0, 10, 0"
+                        Grid.Row="5"
+                        Grid.Column="3"
+                        Grid.ColumnSpan="4"/>
+
+            <Button x:Name="button"
+                    Text="Pretrazivanje"
+                    BackgroundColor="#2196f3"
+                    TextColor="White"
+                    Grid.Row="7"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="5"/>
+
+            <StackLayout Grid.Row="9"
+              Grid.Column="0"
+              Grid.ColumnSpan="7"
+              BackgroundColor="LightGray">
+                
+                <Label Text="Prethodna pretrazivanja"
+                       FontSize="18"
+                       Margin="10"/>
+
+            <ListView>
+                
+            </ListView>
+        </StackLayout>
+        </Grid>
+
+        
 </ContentPage>
