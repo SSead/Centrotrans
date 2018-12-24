@@ -86,16 +86,10 @@ namespace Centrotrans
             {
                 if (stationBeginStrings.Contains(stationBegin.Text) && stationEndStrings.Contains(stationEnd.Text))
                 {
-                    //Application.Current.MainPage = new NavigationPage(new MainPage());
-
                     await Navigation.PushAsync(new StationList((int)stationBeginData[stationBeginStrings.IndexOf(stationBegin.Text)].stationId.Value,
                                                         (int)stationEndData[stationEndStrings.IndexOf(stationEnd.Text)].stationId.Value,
                                                         departureDate.Date,
                                                         (returnSwitch.IsToggled ? returnDate.Date : DateTime.Today.AddDays(-1))));
-                    /*
-                    await (Application.Current as App).NavigationPage.PushAsync(new StationList((int)stationBeginData[stationBeginStrings.IndexOf(stationBegin.Text)].stationId.Value,
-                                                        (int)stationEndData[stationEndStrings.IndexOf(stationEnd.Text)].stationId.Value,
-                                                        datePicker.Date));*/
                 }
             };
 
