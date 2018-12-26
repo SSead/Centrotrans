@@ -1,0 +1,3 @@
+[submodule "Centrotrans/graphql-client"]
+	path = Centrotrans/graphql-client
+	url = https://github.com/graphql-dotnet/graphql-client.git
